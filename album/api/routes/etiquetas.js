@@ -24,7 +24,7 @@ router.get('/findAll/view', function(req, res, next) {
         attributes: { exclude: ["updatedAt"] }  
     })  
     .then(etiquetas => {  
-        res.render('etiquetas', { title: 'Fotos', arrFotos: etiquetas });  
+        res.render('etiquetas', { title: 'Etiquetas', arrEtiquetas: etiquetas });  
     })  
     .catch(error => res.status(400).send(error)) 
   
