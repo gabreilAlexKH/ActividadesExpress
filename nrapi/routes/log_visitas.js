@@ -12,9 +12,13 @@ router.get('/findAll/json', async function(req, res, next) {
   
     const URL = 'https://nosql-63d27-default-rtdb.firebaseio.com/collection.json'
 
-    
+    const config = {
+        proxy: {
+          host: 'localhost',
+        }
+      }
 
-    const response = await axios.get(URL)
+    const response = await axios.get(URL, config)
       
     res.json(response.data);
 
