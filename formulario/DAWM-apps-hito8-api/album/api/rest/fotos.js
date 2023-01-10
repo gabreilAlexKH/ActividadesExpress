@@ -3,7 +3,20 @@ var router = express.Router();
 
 const { Sequelize, Op } = require('sequelize');
 const Foto = require('../models').foto;
-const Etiqueta = require('../models').etiqueta;  
+const Etiqueta = require('../models').etiqueta; 
+
+const path = "public/images/"
+
+const multer = require("multer");
+const storage = multer.diskStorage(
+    {
+        destination: path,
+        filename: function ( req, file, cb ) {
+            cb( null, file.originalname);
+        }
+    }
+);
+const upload = multer({ storage: storage })
 
 router.get('/findAll/json', function(req, res, next) {  
   
@@ -49,7 +62,7 @@ router.get('/findById/:id/json', function(req, res, next) {
 
 
 
-router.post('/save', function(req, res, next) {  
+router.post('/save',  upload.single('archivo') , function(req, res, next) {  
 
     let {titulo, descripcion, calificacion,ruta} = req.body;
     
@@ -57,7 +70,7 @@ router.post('/save', function(req, res, next) {
       titulo: titulo,
       descripcion: descripcion,
       calificacion: parseFloat(calificacion),
-      ruta: ruta,
+      ruta: path+ruta,
       createdAt: new Date(),  
       updatedAt: new Date()  
     })
