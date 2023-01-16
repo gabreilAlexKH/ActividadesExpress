@@ -26,7 +26,13 @@ router.post('/validate', async function(req, res, next) {
 
   if(valid) {
     req.session.user = user;  
-    res.redirect('/');  
+
+    let tracing = req.cookies.tracing  || ''
+    if(tracing.length > 0)
+      res.redirect(tracing)   
+    else
+      res.redirect('/'); 
+
   } else {  
     res.redirect('/login'); 
   }
