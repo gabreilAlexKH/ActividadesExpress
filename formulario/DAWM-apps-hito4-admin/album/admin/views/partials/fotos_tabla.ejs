@@ -28,8 +28,8 @@
                         <td><%= foto.descripcion %></td>  
                         <td><%= foto.url %></td>   
                         <td>  
-                            <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>  
-                            <a href="/photos/delete/<%= idx %>" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>  
+                            <a href="/photos/put/<%= foto.id %>" class="settings" title="Update" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>  
+                            <a href="/photos/delete/<%= foto.id %>" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>  
                         </td>  
                       </tr>  
                     <% }); %>  

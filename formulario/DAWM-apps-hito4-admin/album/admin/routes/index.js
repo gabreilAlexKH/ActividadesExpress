@@ -33,10 +33,13 @@ router.get('/photos/add', function(req, res, next) {
 });
 
 
-router.get('/photos/update/:id', async function(req, res, next) {
 
 
-  const URL = 'http://localhost:4444/fotos/findAll/' + id +'/json' 
+router.get('/photos/put/:id', async function(req, res, next) {
+
+  let id = req.params.id;
+
+  const URL = 'http://localhost:4444/fotos/findAllById/' + id +'/json' 
   const config = {
     proxy: {
       host: 'localhost',
@@ -47,8 +50,10 @@ router.get('/photos/update/:id', async function(req, res, next) {
 
   response.data.map( item => { item.url = 'http://localhost:4444/'+item.ruta.replace('public/','') } )
 
+  console.log(response.data[0]);
+
   
-  res.render('fotos', { title: 'Update', fotos: response.data });
+  res.render('fotos_update', { title: 'Update', foto: response.data[0] });
 
 });
 
@@ -87,11 +92,45 @@ router.post('/photos/save', upload.single('route'), async function(req, res, nex
     
 });
 
+router.post('/photos/update', async function(req, res, next) {  
+
+  let { id , title, description, rate } = req.body
+
+  const URL = 'http://localhost:4444/rest/fotos/update'
+
+  let data = {
+    id:id,
+    titulo:title, 
+    descripcion: description, 
+    calificacion: rate,
+    ruta: ''
+  }
+
+  const config = {
+    proxy: {
+      host: 'localhost',
+      port: 4444
+    }
+  }
+
+    
+  const response = await axios.put(URL, data, config);
+
+
+  if(response.status == '200' && response.statusText == 'OK') {
+    res.redirect('/photos')
+  } else {
+    res.redirect('/') 
+  }
+
+    
+});
+
+
 router.get('/photos/delete/:id', async function(req, res, next) {  
 
   let id = req.params.id;
 
-  
 
   const URL = 'http://localhost:4444/rest/fotos/delete/'+ id;
 
