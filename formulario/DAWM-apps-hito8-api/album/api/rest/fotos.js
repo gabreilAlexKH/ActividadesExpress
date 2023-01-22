@@ -82,7 +82,7 @@ router.post('/save',  upload.single('archivo') , function(req, res, next) {
 });
 
 
-router.put('/update', function(req, res, next) {  
+router.put('/update', upload.single('archivo') , function(req, res, next) {  
 
     let {id, titulo, descripcion, calificacion,ruta} = req.body;
 

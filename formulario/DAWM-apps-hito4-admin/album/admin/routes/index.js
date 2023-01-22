@@ -97,15 +97,16 @@ router.post('/photos/update',upload.single('route'), async function (req, res, n
 
   const URL = 'http://localhost:4444/rest/fotos/update'
 
-  let data = {
-    id:id,
-    titulo: title,
-    descripcion: description,
-    calificacion: rate,
-    ruta: ''
-  }
+  let data = new FormData()
+  data.append("id",id),
+  data.append("titulo", title)
+  data.append("descripcion", description)
+  data.append("calificacion", rate)
+  data.append("ruta", originalname)
+  data.append("archivo", buffer, originalname)
   
   const config = {
+    headers: data.getHeaders(),
     proxy: {
       host: 'localhost',
       port: 4444
