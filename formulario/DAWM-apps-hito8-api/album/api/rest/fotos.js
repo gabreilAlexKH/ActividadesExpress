@@ -70,7 +70,7 @@ router.post('/save',  upload.single('archivo') , function(req, res, next) {
       titulo: titulo,
       descripcion: descripcion,
       calificacion: parseFloat(calificacion),
-      ruta: path+ruta,
+      ruta: path + ruta,
       createdAt: new Date(),  
       updatedAt: new Date()  
     })
@@ -91,7 +91,7 @@ router.put('/update', upload.single('archivo') , function(req, res, next) {
       titulo: titulo,
       descripcion: descripcion,
       calificacion: parseFloat(calificacion),
-      ruta: ruta,
+      ruta: path + ruta,
       createdAt: new Date(),  
       updatedAt: new Date()  
     },
